@@ -28,6 +28,7 @@ const mutations = {
     const res = {
       id: state.tasks[payload.type].length + 1,
       title: payload.title,
+      type: payload.type,
       completed: false,
     };
     state.tasks[payload.type].push(res);

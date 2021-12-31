@@ -11,7 +11,7 @@
           :get-child-payload="getChildPayload"
         >
           <Draggable v-for="todo in todos.tasks.todos" :key="todo.id">
-            <Todo :todo="todo" col="todos" />
+            <Todo :todo="todo" />
           </Draggable>
         </Container>
       </div>
@@ -24,7 +24,7 @@
           :get-child-payload="getChildPayload"
         >
           <Draggable v-for="todo in todos.tasks.inProgress" :key="todo.id">
-            <Todo :todo="todo" col="inProgress" />
+            <Todo :todo="todo" />
           </Draggable>
         </Container>
       </div>
@@ -37,7 +37,7 @@
           :get-child-payload="getChildPayload"
         >
           <Draggable v-for="todo in todos.tasks.inReview" :key="todo.id">
-            <Todo :todo="todo" col="inReview" />
+            <Todo :todo="todo" />
           </Draggable>
         </Container>
       </div>
@@ -50,7 +50,7 @@
           :get-child-payload="getChildPayload"
         >
           <Draggable v-for="todo in todos.tasks.completed" :key="todo.id">
-            <Todo :todo="todo" col="completed" />
+            <Todo :todo="todo" />
           </Draggable>
         </Container>
       </div>
@@ -91,7 +91,6 @@ export default {
       if (isSource) {
         //Saves the dragged item inside the Todos data
         this.draggingTodo = {
-          column: col,
           index: payload.index,
           todoContent: {
             ...this.$store.state.todos.tasks[col][payload.index],
@@ -102,7 +101,10 @@ export default {
     handleDrop(col, dropResult) {
       const { addedIndex, removedIndex } = dropResult;
 
-      if (col === this.draggingTodo.column && removedIndex === addedIndex) {
+      if (
+        col === this.draggingTodo.todoContent.type &&
+        removedIndex === addedIndex
+      ) {
         return;
       }
 
@@ -111,7 +113,9 @@ export default {
       }
 
       if (addedIndex !== null) {
+        //Changes type property and adds the todo to the column that is being dragged
         const draggedItem = this.draggingTodo.todoContent;
+        draggedItem["type"] = col;
         this.$store.commit("addTodoToColumn", { col, addedIndex, draggedItem });
       }
     },

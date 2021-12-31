@@ -1,7 +1,7 @@
 <template>
   <div class="todo">
     {{ todo.title }}
-    <i @click="deleteTodo(col, todo.id)" class="fas fa-trash-alt"></i>
+    <i @click="deleteTodo(todo.type, todo.id)" class="fas fa-trash-alt"></i>
   </div>
 </template>
 
@@ -11,10 +11,6 @@ export default {
   props: {
     todo: {
       type: Object,
-      required: true,
-    },
-    col: {
-      type: String,
       required: true,
     },
   },
