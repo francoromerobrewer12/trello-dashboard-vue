@@ -7,11 +7,16 @@ const state = {
 const getters = {};
 
 const actions = {
+  //Gets todos from API, filters down the array to only 5 items and adds
+  //type property of todos, for all this todos to be added in the first column
   async fetchTodos({ commit }) {
     const response = await axios.get(
       "https://jsonplaceholder.typicode.com/todos"
     );
-    commit("setTodos", response.data.slice(0, 5));
+    const filteredResponse = response.data.slice(0, 5);
+    const result = filteredResponse.map(obj => ({ ...obj, type: "todos" }));
+
+    commit("setTodos", result);
   },
 };
 
