@@ -1,13 +1,11 @@
 <template>
   <div class="todo">
     {{ todo.title }}
-    <i @click="deleteTodo(todo.id)" class="fas fa-trash-alt"></i>
+    <i @click="deleteTodo(col, todo.id)" class="fas fa-trash-alt"></i>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "Todo",
   props: {
@@ -15,10 +13,15 @@ export default {
       type: Object,
       required: true,
     },
+    col: {
+      type: String,
+      required: true,
+    },
   },
   methods: {
-    // ejecutar directamente la mutacion y no la accion
-    ...mapActions(["deleteTodo"]),
+    deleteTodo(col, id) {
+      this.$store.commit("removeTodo", { col, id });
+    },
   },
 };
 </script>

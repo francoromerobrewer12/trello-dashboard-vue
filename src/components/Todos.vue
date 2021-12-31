@@ -11,7 +11,7 @@
           :get-child-payload="getChildPayload"
         >
           <Draggable v-for="todo in todos.tasks.todos" :key="todo.id">
-            <Todo :todo="todo" />
+            <Todo :todo="todo" col="todos" />
           </Draggable>
         </Container>
       </div>
@@ -24,7 +24,7 @@
           :get-child-payload="getChildPayload"
         >
           <Draggable v-for="todo in todos.tasks.inProgress" :key="todo.id">
-            <Todo :todo="todo" />
+            <Todo :todo="todo" col="inProgress" />
           </Draggable>
         </Container>
       </div>
@@ -37,7 +37,7 @@
           :get-child-payload="getChildPayload"
         >
           <Draggable v-for="todo in todos.tasks.inReview" :key="todo.id">
-            <Todo :todo="todo" />
+            <Todo :todo="todo" col="inReview" />
           </Draggable>
         </Container>
       </div>
@@ -50,7 +50,7 @@
           :get-child-payload="getChildPayload"
         >
           <Draggable v-for="todo in todos.tasks.completed" :key="todo.id">
-            <Todo :todo="todo" />
+            <Todo :todo="todo" col="completed" />
           </Draggable>
         </Container>
       </div>
@@ -77,7 +77,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["todos", "tasks"]),
+    ...mapState(["todos"]),
   },
   methods: {
     ...mapActions(["fetchTodos", "deleteTodo"]),
