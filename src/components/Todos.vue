@@ -69,6 +69,7 @@ export default {
   components: { Todo, Draggable, Container },
   data() {
     return {
+      //Object that is being dragged by the user
       draggingTodo: {
         column: "",
         index: -1,
@@ -80,7 +81,7 @@ export default {
     ...mapState(["todos"]),
   },
   methods: {
-    ...mapActions(["fetchTodos", "deleteTodo"]),
+    ...mapActions(["fetchTodos"]),
 
     //Drag and Drop methods that remove and add dragged item to the corresponding column
     handleDragStart(col, dragResult) {
@@ -125,6 +126,7 @@ export default {
   },
 
   created() {
+    //Brings all the todos from the API to start the app
     this.fetchTodos();
   },
 };

@@ -21,7 +21,9 @@ const actions = {
 };
 
 const mutations = {
+  //Saves the todos coming from API to the state.tasks.todos
   setTodos: (state, todos) => (state.tasks.todos = todos),
+  //Creates and Adds a new todo to a specific column
   addTodo(state, payload) {
     const res = {
       id: state.tasks[payload.type].length + 1,
@@ -30,13 +32,17 @@ const mutations = {
     };
     state.tasks[payload.type].push(res);
   },
-  removeTodo: (state, payload) =>
-    (state.tasks[payload.col] = state.tasks[payload.col].filter(
+  //Removes a specific todo from a column, not being able to see it anywhere
+  removeTodo: (state, payload) => {
+    state.tasks[payload.col] = state.tasks[payload.col].filter(
       todo => todo.id !== payload.id
-    )),
+    );
+  },
+  //Removes a todo from a specific column when the user starts the drag action
   deleteTodoFromColumn(state, payload) {
     state.tasks[payload.col].splice(payload.removedIndex, 1);
   },
+  //Adds the dragged todo to a specific column
   addTodoToColumn(state, payload) {
     state.tasks[payload.col].splice(payload.addedIndex, 0, payload.draggedItem);
   },
