@@ -2,7 +2,9 @@ import axios from "axios";
 
 const state = {
   tasks: { todos: [], inProgress: [], inReview: [], completed: [] },
+  //Displays or not the EditPanel component
   editMode: false,
+  //Saves the data from the editing task
   editingTask: null,
 };
 

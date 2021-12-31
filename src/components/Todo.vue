@@ -39,8 +39,16 @@ export default {
 }
 .fa-trash-alt {
   position: absolute;
-  bottom: 10px;
+  bottom: 6px;
   right: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.fa-edit {
+  position: absolute;
+  top: 6px;
+  right: 6px;
   color: #fff;
   cursor: pointer;
 }
