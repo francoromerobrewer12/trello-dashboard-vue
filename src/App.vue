@@ -4,6 +4,7 @@
     <div class="container">
       <AddTodo />
       <Todos />
+      <EditPanel v-show="editMode" />
     </div>
   </div>
 </template>
@@ -11,12 +12,19 @@
 <script>
 import Todos from "./components/Todos.vue";
 import AddTodo from "./components/AddTodo.vue";
+import EditPanel from "./components/EditPanel.vue";
 
 export default {
   name: "App",
+  data() {
+    return {
+      editMode: false,
+    };
+  },
   components: {
     Todos,
     AddTodo,
+    EditPanel,
   },
 };
 </script>
