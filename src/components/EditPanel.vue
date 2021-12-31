@@ -1,10 +1,11 @@
 <template>
   <div class="editPanel-container">
     <div class="editPanel">
+      <i @click="closeEditPanel" class="fas fa-times"></i>
       <h2>Edit Your Task</h2>
 
       <h3>Title:</h3>
-      <input type="text" v-model="newTitle" placeholder="Title" />
+      <input type="text" v-model="newTitle" :placeholder="todo.title" />
 
       <h3>State:</h3>
       <div class="state-wrapp">
@@ -83,6 +84,11 @@ export default {
       type: Object,
     },
   },
+  methods: {
+    closeEditPanel() {
+      this.$store.commit("turnOffEditMode");
+    },
+  },
 };
 </script>
 
@@ -109,6 +115,11 @@ export default {
   padding: 32px;
 }
 
+.fa-times {
+  float: right;
+  cursor: pointer;
+}
+
 h2 {
   color: #41b883;
   text-transform: uppercase;
@@ -132,9 +143,6 @@ input[type="text"]:focus {
 
 .state-wrapp .form-group:nth-child(2) {
   margin-left: 32px;
-}
-
-input[type="radio"] {
 }
 
 .type-wrap {

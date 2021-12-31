@@ -2,6 +2,8 @@ import axios from "axios";
 
 const state = {
   tasks: { todos: [], inProgress: [], inReview: [], completed: [] },
+  editMode: false,
+  editingTask: null,
 };
 
 const getters = {};
@@ -46,6 +48,15 @@ const mutations = {
   //Adds the dragged todo to a specific column
   addTodoToColumn(state, payload) {
     state.tasks[payload.col].splice(payload.addedIndex, 0, payload.draggedItem);
+  },
+  //Turns on the editMode and displays the Edit Panel
+  turnOnEditMode(state, payload) {
+    state.editMode = payload.state;
+    state.editingTask = payload.item;
+  },
+  //Turns off the editMode hiding the Edit Panel
+  turnOffEditMode(state) {
+    state.editMode = false;
   },
 };
 

@@ -1,6 +1,7 @@
 <template>
   <div class="todo">
     {{ todo.title }}
+    <i @click="openEditPanel(todo)" class="fas fa-edit"></i>
     <i @click="deleteTodo(todo.type, todo.id)" class="fas fa-trash-alt"></i>
   </div>
 </template>
@@ -17,6 +18,9 @@ export default {
   methods: {
     deleteTodo(col, id) {
       this.$store.commit("removeTodo", { col, id });
+    },
+    openEditPanel(todo) {
+      this.$store.commit("turnOnEditMode", { state: true, item: todo });
     },
   },
 };
