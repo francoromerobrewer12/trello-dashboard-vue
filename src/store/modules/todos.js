@@ -17,13 +17,13 @@ const actions = {
 
 const mutations = {
   setTodos: (state, todos) => (state.tasks.todos = todos),
-  addTodo(state, title) {
+  addTodo(state, payload) {
     const res = {
-      id: state.tasks.todos.length + 1,
-      title,
+      id: state.tasks[payload.type].length + 1,
+      title: payload.title,
       completed: false,
     };
-    state.tasks.todos.push(res);
+    state.tasks[payload.type].push(res);
   },
   removeTodo: (state, payload) =>
     (state.tasks[payload.col] = state.tasks[payload.col].filter(
