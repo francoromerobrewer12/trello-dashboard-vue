@@ -18,7 +18,7 @@
             type="radio"
             id="completed"
             v-model="inputChanges.newCompleted"
-            value="complete"
+            :value="true"
           />
           <label for="completed">Complete</label>
         </div>
@@ -27,7 +27,7 @@
             type="radio"
             id="incompleted"
             v-model="inputChanges.newCompleted"
-            value="incomplete"
+            :value="false"
           />
           <label for="incomplete">Incomplete</label>
         </div>
@@ -73,7 +73,7 @@
         </div>
       </div>
 
-      <button @click="updateTodo(todo.id, inputChanges)">SAVE CHANGES</button>
+      <button @click="updateTodo(todo.type)">SAVE CHANGES</button>
     </div>
   </div>
 </template>
@@ -100,16 +100,18 @@ export default {
     closeEditPanel() {
       this.$store.commit("turnOffEditMode");
     },
-    updateTodo(id) {
+    updateTodo(type) {
       this.$store.commit("updatingTodo", {
         ...this.inputChanges,
-        id,
+        type,
         beforeEditContent: this.beforeEditTodoContent,
       });
     },
   },
   created() {
+    //Saving the todo passed by props to my EditPanel component data
     this.beforeEditTodoContent = this.$props.todo;
+    //console.log("created panel", this.beforeEditTodoContent);
   },
 };
 </script>

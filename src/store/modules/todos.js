@@ -60,20 +60,33 @@ const mutations = {
   turnOffEditMode(state) {
     state.editMode = false;
   },
-  //Updates todo wwith new values
+  //Updates todo with new values
   updatingTodo(state, payload) {
     state.tasks[payload.beforeEditContent.type].map(todo => {
-      if (todo.id === payload.id) {
+      if (todo.id === payload.beforeEditContent.id) {
+        //Updates todo info only if the user changed any of the properties
         payload.newTitle === "" ? "" : (todo.title = payload.newTitle);
         payload.newCompleted === ""
           ? ""
           : (todo.completed = payload.newCompleted);
         payload.newType === "" ? "" : (todo.type = payload.newType);
+
+        //if the user changes the type, the item needs to be removed from a column
+        //and added to a new one
+        if (payload.newType !== "") {
+          state.tasks[payload.newType].push(todo);
+          state.tasks[payload.type] = state.tasks[payload.type].filter(
+            todo => todo.id !== payload.beforeEditContent.id
+          );
+        }
+
+        //HAVING CONFLICTS WITH BEFOREEDITTODOCONTENT DATA CHANGING, NEED EXPLANATION
       }
+
       return todo;
     });
+
     this.commit("turnOffEditMode");
-    //when changingtype add to new column
   },
 };
 
