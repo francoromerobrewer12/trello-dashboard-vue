@@ -60,6 +60,21 @@ const mutations = {
   turnOffEditMode(state) {
     state.editMode = false;
   },
+  //Updates todo wwith new values
+  updatingTodo(state, payload) {
+    state.tasks[payload.beforeEditContent.type].map(todo => {
+      if (todo.id === payload.id) {
+        payload.newTitle === "" ? "" : (todo.title = payload.newTitle);
+        payload.newCompleted === ""
+          ? ""
+          : (todo.completed = payload.newCompleted);
+        payload.newType === "" ? "" : (todo.type = payload.newType);
+      }
+      return todo;
+    });
+    this.commit("turnOffEditMode");
+    //when changingtype add to new column
+  },
 };
 
 export default {

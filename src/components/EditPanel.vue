@@ -5,7 +5,11 @@
       <h2>Edit Your Task</h2>
 
       <h3>Title:</h3>
-      <input type="text" v-model="newTitle" :placeholder="todo.title" />
+      <input
+        type="text"
+        v-model="inputChanges.newTitle"
+        :placeholder="todo.title"
+      />
 
       <h3>State:</h3>
       <div class="state-wrapp">
@@ -13,7 +17,7 @@
           <input
             type="radio"
             id="completed"
-            v-model="newCompleted"
+            v-model="inputChanges.newCompleted"
             value="complete"
           />
           <label for="completed">Complete</label>
@@ -22,7 +26,7 @@
           <input
             type="radio"
             id="incompleted"
-            v-model="newCompleted"
+            v-model="inputChanges.newCompleted"
             value="incomplete"
           />
           <label for="incomplete">Incomplete</label>
@@ -32,14 +36,19 @@
       <h3>Type:</h3>
       <div class="type-wrap">
         <div class="form-group">
-          <input type="radio" id="todos" v-model="newType" value="todos" />
+          <input
+            type="radio"
+            id="todos"
+            v-model="inputChanges.newType"
+            value="todos"
+          />
           <label for="todos">Tasks</label>
         </div>
         <div class="form-group">
           <input
             type="radio"
             id="inProgress"
-            v-model="newType"
+            v-model="inputChanges.newType"
             value="inProgress"
           />
           <label for="inProgress">Progress</label>
@@ -48,7 +57,7 @@
           <input
             type="radio"
             id="inReview"
-            v-model="newType"
+            v-model="inputChanges.newType"
             value="inReview"
           />
           <label for="inReview">Review</label>
@@ -57,14 +66,14 @@
           <input
             type="radio"
             id="complete-task"
-            v-model="newType"
+            v-model="inputChanges.newType"
             value="completed"
           />
           <label for="complete-task">Complete</label>
         </div>
       </div>
 
-      <button>SAVE CHANGES</button>
+      <button @click="updateTodo(todo.id, inputChanges)">SAVE CHANGES</button>
     </div>
   </div>
 </template>
@@ -74,9 +83,12 @@ export default {
   name: "EditPanel",
   data() {
     return {
-      newTitle: "",
-      newCompleted: "",
-      newType: "",
+      beforeEditTodoContent: null,
+      inputChanges: {
+        newTitle: "",
+        newCompleted: "",
+        newType: "",
+      },
     };
   },
   props: {
@@ -88,6 +100,16 @@ export default {
     closeEditPanel() {
       this.$store.commit("turnOffEditMode");
     },
+    updateTodo(id) {
+      this.$store.commit("updatingTodo", {
+        ...this.inputChanges,
+        id,
+        beforeEditContent: this.beforeEditTodoContent,
+      });
+    },
+  },
+  created() {
+    this.beforeEditTodoContent = this.$props.todo;
   },
 };
 </script>
