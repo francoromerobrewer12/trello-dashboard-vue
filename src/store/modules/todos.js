@@ -62,8 +62,8 @@ const mutations = {
   },
   //Updates todo with new values
   updatingTodo(state, payload) {
-    state.tasks[payload.beforeEditContent.type].map(todo => {
-      if (todo.id === payload.beforeEditContent.id) {
+    state.tasks[payload.type].map(todo => {
+      if (todo.id === payload.id) {
         //Updates todo info only if the user changed any of the properties
         payload.newTitle === "" ? "" : (todo.title = payload.newTitle);
         payload.newCompleted === ""
@@ -76,7 +76,7 @@ const mutations = {
         if (payload.newType !== "") {
           state.tasks[payload.newType].push(todo);
           state.tasks[payload.type] = state.tasks[payload.type].filter(
-            todo => todo.id !== payload.beforeEditContent.id
+            todo => todo.id !== payload.id
           );
         }
 

@@ -73,7 +73,7 @@
         </div>
       </div>
 
-      <button @click="updateTodo(todo.type)">SAVE CHANGES</button>
+      <button @click="updateTodo(todo.type, todo.id)">SAVE CHANGES</button>
     </div>
   </div>
 </template>
@@ -100,11 +100,11 @@ export default {
     closeEditPanel() {
       this.$store.commit("turnOffEditMode");
     },
-    updateTodo(type) {
+    updateTodo(type, id) {
       this.$store.commit("updatingTodo", {
         ...this.inputChanges,
         type,
-        beforeEditContent: this.beforeEditTodoContent,
+        id,
       });
     },
   },
