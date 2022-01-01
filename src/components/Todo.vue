@@ -1,14 +1,21 @@
 <template>
-  <div class="todo">
+  <div @click="showIcons" class="todo">
     {{ todo.title }}
-    <i @click="openEditPanel(todo)" class="fas fa-edit"></i>
-    <i @click="deleteTodo(todo.type, todo.id)" class="fas fa-trash-alt"></i>
+    <div class="editContainer" v-show="showIcon">
+      <i @click="openEditPanel(todo)" class="fas fa-edit"></i>
+      <i @click="deleteTodo(todo.type, todo.id)" class="fas fa-trash-alt"></i>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "Todo",
+  data() {
+    return {
+      showIcon: false,
+    };
+  },
   props: {
     todo: {
       type: Object,
@@ -16,6 +23,9 @@ export default {
     },
   },
   methods: {
+    showIcons() {
+      this.showIcon = !this.showIcon;
+    },
     deleteTodo(col, id) {
       this.$store.commit("removeTodo", { col, id });
     },
